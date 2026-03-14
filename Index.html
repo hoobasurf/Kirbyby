@@ -396,7 +396,7 @@ function startGame(){
 // ═══════════════════════════════════════════
 // IN-GAME AVATAR MODAL
 // ═══════════════════════════════════════════
-var RPM_URL='https://iframe.readyplayer.me/avatar?frameApi';
+var RPM_URL='https://avaturn.me/embed';
 var _rpmSelectOpen=false,_rpmSelectSub=false;
 var _rpmGameOpen=false,_rpmGameSub=false;
 
@@ -892,12 +892,12 @@ window.addEventListener('message',function(e){
   if(!e.data)return;
   var data=e.data;
   try{if(typeof data==='string')data=JSON.parse(data);}catch(err){return;}
-  var isRPM=(data.source==='readyplayerme'||data.eventName||data.name);
+  var isRPM=(data.source==='readyplayerme'||data.source==='avaturn'||data.eventName||data.name||data.type==='avaturn');
   if(!isRPM)return;
 
   // Avatar exporté
-  if(data.eventName==='v1.avatar.exported'||data.name==='avatar-exported'){
-    var url=data&&data.data&&data.data.url||data.url||data.avatarUrl||null;
+  if(data.eventName==='v1.avatar.exported'||data.name==='avatar-exported'||data.type==='avaturn'){
+    var url=data&&data.data&&data.data.url||data.url||data.avatarUrl||data.avatarURL||null;
     if(url){
       _gameRpmUrl=url;
       try{localStorage.setItem('rpmAvatarURL',url);}catch(_){}
